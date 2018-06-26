@@ -1,4 +1,5 @@
-php实现海报生成(包含多行文本与水印)
+源码地址：[实现海报生成(包含多行文本与水印)](https://github.com/nosee123/Issues/tree/master/php%E5%AE%9E%E7%8E%B0%E6%B5%B7%E6%8A%A5%E7%94%9F%E6%88%90(%E5%8C%85%E5%90%AB%E5%A4%9A%E8%A1%8C%E6%96%87%E6%9C%AC%E4%B8%8E%E6%B0%B4%E5%8D%B0))
+
 ## 场景
 生成一张海报，海报内容可以渲染多行文本与水印。
  
@@ -57,17 +58,13 @@ imagepng() 将 GD 图像流（image）以 PNG 格式输出到标准输出（通�
 查看 poster.php
 
 ## 运行结果
-![](https://upload-images.jianshu.io/upload_images/2021264-2e020abb006cbaf0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-## 说明
-
-本文的案例只论述了对png图片的处理，如果你要处理的图片不一定是png，你可以通过判断图片后缀来选择相应的方法。
-
-## 参考
-
-官方手册(GD库) http://php.net/manual/zh/book.image.php
+![](https://upload-images.jianshu.io/upload_images/2021264-7e3211fdd4fe858c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## Author
 
 [nosee123](https://github.com/nosee123)
+
+## License
+
+MIT Public License
 
