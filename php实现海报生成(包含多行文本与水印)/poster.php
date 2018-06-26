@@ -5,75 +5,61 @@
  * Time: 17:12
  */
 
-header('Content-Type: image/png');
-
 // picture
-$bg_file = 'data/img/background.png';
-$star = 'data/img/star.png';
-$p_file = 'data/img/star.png';
-$qr_code = 'data/img/scan.png';
+$file_bg = 'data/img/background.png';
+$file_star = 'data/img/star.png';
+$file_code = 'data/img/scan.png';
 
 // font type
-$font_path = 'data/fonts/msyh.ttc';
+$font_msyh = 'data/fonts/msyh.ttc';
+$font_simhei = 'data/fonts/simhei.ttf';
 
-$img = imagecreatefrompng($bg_file);//背景
-$star = imagecreatefrompng($star);//水印1
-$p_pic = imagecreatefrompng($p_file);//水印2
-$qr = imagecreatefrompng($qr_code);//水印3
+$img_bg = imagecreatefrompng($file_bg);//背景
+$img_star = imagecreatefrompng($file_star);//水印1
+$img_code = imagecreatefrompng($file_code);//水印2
 
-$im = imagecreatetruecolor(imagesx($img), imagesy($img));//创建一张与背景图同样大小的真彩色图像
-imagecopymerge($im, $img, 0, 0, 0, 0, imagesx($img), imagesy($img), 100);
-//以上，相当于：  imagecopy($im, $img, 0, 0, 0, 0, imagesx($img), imagesy($img));
+$width = imagesx($img_bg);
+$height = imagesy($img_bg);
 
-Imagepng($im);exit;
+//$im = $img_bg;
+$im = imagecreatetruecolor($width, $height);  //创建一张与背景图同样大小的真彩色图像
+imagecopy($im, $img_bg, 0, 0, 0, 0, $width, $height);
 
-imagesavealpha($img,true);
+//text color
+$color_white = ImageColorAllocate($im, 222, 222, 222);
+$color_red = ImageColorAllocate($im, 255, 70, 70);
 
+$test_r = '30';//文本右偏移
 
-//常用颜色
-$black=ImageColorAllocate($img, 30, 30, 30);
-$text_color_r = ImageColorAllocate($img, 255, 70, 70);
+$text_title = '《遇见你之前》';
+$v = imagettftext($im, 30, 0, $test_r, 250, $color_white, $font_msyh, $text_title);
 
-$test_r = '30';
+$text = '《遇见你之前》是一部风格非常鲜明的英国爱情电影，温暖流畅的叙事节奏、明快动听的配乐和色彩明丽的美术效果是英国爱情电影里必不可少的元素，在本片中，这两个特点都被发挥到了极致。尤其是配乐和美术，在本片中简直完美到爆炸，几乎每一段BGM都可以被反复播放而不觉得厌倦，而色彩的选用上，导演也是独具匠心。';
+$h = 350;
+//多行文本渲染
+foreach (str_split($text,72) as $key=>$val){
+    $tmp_h = $h + $key * 90;
+    imagettftext($im, 23, 0, $test_r, $tmp_h, $color_red, $font_simhei, $val);
+}
 
-$fh_name = $return_data['name'];
-$vs_1 = $nick_name . ' VS ' . $fh_name;
-imagettftext($im, 25, 0, $test_r, 80, $black, $font_path, $vs_1);
-
-$str = '相似度：';
-imagettftext($im, 25, 0, $test_r, 135, $black, $font_path, $str);
-$str = $return_data['rate'];
-imagettftext($im, 25, 0, 190, 136, $black, $font_path, $str);
-$str = '%';
-imagettftext($im, 25, 0, 245, 136, $black, $font_path, $str);
-
-$str = '父爱指数：';
-imagettftext($im, 25, 0, $test_r, 190, $black, $font_path, $str);
-$star_num = $return_data['level'];
-$w = 175;
-for($i=1; $i<=$star_num; $i++){
+//随机星星位置与数量
+$star_num = rand(5,10);
+$range_w = (int) $width;
+$range_h = (int) ($height / 3);
+for($i=1; $i <= $star_num; $i++){
     $tmp_w = $w + $i * 40;
-    imagecopy($im, $star, $tmp_w, 165, 0, 0, 25, 26);
+    imagecopymerge($im, $img_star, rand(1,$range_w), rand(1,$range_h), 0, 0, imagesx($img_star), imagesy($img_star),rand(10,90));
 }
 
-$ln = '你的教育观念是：';
-imagettftext($im, 25, 0, $test_r, 245, $black, $font_path, $ln);
-
-
-$h = 300;
-foreach (str_split($return_data['text'],54) as $key=>$val){
-    $tmp_h = $h + ($key) * 45;
-    imagettftext($im, 24, 0, $test_r, $tmp_h, $text_color_r, $font_path, $val);
-}
-
-//加载人物图片
-imagecopymerge($im, $p_pic, 70, 487, 0, 0, 337, 465, 100);
 //加载二维码图片
-imagecopymerge($im, $qr, 380, 497, 0, 0, 222, 222, 100);
+$width_code = imagesx($img_code);
+$height_code = imagesy($img_code);
+imagecopymerge($im, $img_code, $width-$width_code-30, $height-$height_code-50, 0, 0, $width_code, $height_code, 50);
 
+header('Content-Type: image/png');
 //最后处理 输出、销毁
 Imagepng($im);
-ImageDestroy($img);
-ImageDestroy($p_pic);
-ImageDestroy($qr);
-ImageDestroy($star);
+ImageDestroy($img_code);
+ImageDestroy($img_star);
+ImageDestroy($img_bg);
+ImageDestroy($im);
