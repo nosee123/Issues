@@ -57,6 +57,7 @@ imagepng() 将 GD 图像流（image）以 PNG 格式输出到标准输出（通�
 查看 poster.php
 
 ## 运行结果
+![](https://upload-images.jianshu.io/upload_images/2021264-2e020abb006cbaf0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 说明
 
