@@ -1,4 +1,4 @@
-源码地址：https://github.com/nosee123/PicUpload
+源码地址：[php实现图片上传功能(带缩略图)](https://github.com/nosee123/Issues/tree/master/php%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E5%8A%9F%E8%83%BD(%E5%B8%A6%E7%BC%A9%E7%95%A5%E5%9B%BE))
 
 # PicUpload
 ## Summary
