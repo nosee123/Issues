@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片上传</title>
+</head>
+<style>
+    body{ background: #fffafa; }
+    table { margin-top:50px; border-collapse: collapse; width: 80%; }
+    table tr td{ border: 1px solid #CCCCCC; text-align: center; }
+    .error { color: red; font-size: small; }
+</style>
+<body>
+<form action="" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>图片:</td>
+            <td>
+                <span id="reload">
+                    <?php if($detail){ ?>
+                    <a href="<?=$detail?>" target="_blank" src="<?=$detail?>" onmouseover="tip_start(this);">
+                        <img src="<?=$detail?>" height="38px" width="38px" />
+                    </a>
+                    <?php }else{ ?>
+                    <a  href="">无图片</a>
+                    <?php } ?>
+                </span>
+            </td>
+            <td>
+                [<a href="javascript:reload('pic');" id="switch">重新上传</a>]
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" name="submit" value="提交">
+                <?php if ($error) { ?>
+                <span class="error">请选择有效的图片提交</span>
+                <?php } ?>
+            </td>
+        </tr>
+    </table>
+</form>
+<script src="static/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="static/js/preview.js"></script>
+<script type="text/javascript">
+    var G_CONTENT;
+    function reload(key) {
+        var obj = document.getElementById('reload');
+        var btn = document.getElementById('switch');
+        if (obj.innerHTML.match(/.+href=.+/)) {
+            G_CONTENT = obj.innerHTML;
+            obj.innerHTML = '<input type="file" name="' + key + '" size="20">';
+            btn.innerHTML = '取消上传';
+        } else {
+            obj.innerHTML = G_CONTENT;
+            btn.innerHTML = '重新上传';
+        }
+    }
+</script>
+</body>
+</html>
